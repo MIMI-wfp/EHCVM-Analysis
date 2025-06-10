@@ -69,8 +69,8 @@ plot_sf_choropleth <- function(
 
 # Example usage
 plot_sf_choropleth(
-  merged_sf  = mli_merged,
-  outline_sf = mli_country_outline,
+  merged_sf  = my_merged_data(ADM+proportions),
+  outline_sf = my_country_outline,
   fill_var   = "zn_mg_prop",
   palette    = "Zissou1",
   limits     = c(0, 100),
