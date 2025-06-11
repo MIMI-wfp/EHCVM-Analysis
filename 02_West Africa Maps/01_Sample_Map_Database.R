@@ -15,7 +15,6 @@ rm(list= c("rq_packages", "installed_packages"))
 
 # Create DB connection
 user <- getPass("Enter username: ")
-password <- getPass("Enter password: ")
 
 # Establish the database connection
 con <- dbConnect(RMySQL::MySQL(),
@@ -23,7 +22,7 @@ con <- dbConnect(RMySQL::MySQL(),
                  host = "localhost",
                  port = 3306,
                  user = user,
-                 password = password)
+                 password = getPass("Enter password: "))
 
 # Get map data from database (Senegal as an example)
 sen_hungermap <- dbGetQuery(con, "SELECT * FROM hungermap_mimi WHERE iso3='SEN'")
