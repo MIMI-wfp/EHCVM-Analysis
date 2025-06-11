@@ -13,15 +13,12 @@ lapply(rq_packages, require, character.only = T)
 
 rm(list= c("rq_packages", "installed_packages"))
 
-# Create DB connection
-user <- getPass("Enter username: ")
-
 # Establish the database connection
 con <- dbConnect(RMySQL::MySQL(),
                  dbname = "mimi_db",
                  host = "localhost",
                  port = 3306,
-                 user = user,
+                 user = getPass("Enter username: "),
                  password = getPass("Enter password: "))
 
 # Get map data from database (Senegal as an example)
