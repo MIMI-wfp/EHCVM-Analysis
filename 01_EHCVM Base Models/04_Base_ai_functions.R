@@ -30,19 +30,7 @@ process_food_consumption <- function(hh_info_path, cons_path, fct_path) {
     mutate(quantity_100g = quantity_100g / afe) %>%
     select(-afe, -quantity_g)
   
-  # Handle Outliers in Log Space
-  cons_data <- cons_data %>%
-    mutate(log_quantity_100g = log(quantity_100g)) %>%
-    group_by(item_code) %>%
-    mutate(
-      median_q = median(log_quantity_100g, na.rm = TRUE),
-      sd_q = sd(log_quantity_100g, na.rm = TRUE),
-      log_quantity_100g = ifelse(log_quantity_100g > median_q + 4 * sd_q, median_q, log_quantity_100g)
-    ) %>%
-    ungroup() %>%
-    select(-median_q, -sd_q) %>% 
-    mutate(quantity_100g = exp(log_quantity_100g)) %>%
-    select(-log_quantity_100g)
+  # Choose Method to Handle Outliers in Log Space
   
   # Read Food Composition Table (FCT)
   fct_data <- read.csv(fct_path) 
@@ -225,5 +213,6 @@ nga_base_ai <- process_food_consumption("nga_lss1819_hh_info.csv",
 gha_base_ai <- process_food_consumption("gha_glss17_hh_info.csv",
                                         "gha_food_consumption.csv",
                                         "gha_glss17_fct.csv")
+
 
 
